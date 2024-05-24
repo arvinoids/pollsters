@@ -8,11 +8,9 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
-
 <style>
 input {
-  @apply rounded;
+  @apply rounded border;
 }
 
 .btn {

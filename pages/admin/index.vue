@@ -4,16 +4,21 @@
     <div class="flex flex-col">
       <CreateSurvey />
       <CreateAssignment />
+      <CreateQuestion />
+      <CreateOption />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import CreateSurvey from "~/components/CreateSurvey.vue";
-import AssignSurvey from "~/components/CreateAssignment.vue";
-import CreateAssignment from "~/components/CreateAssignment.vue";
+import CreateQuestion from "~/components/CreateQuestion.vue";
 
-const loggedInAsAdmin = useLoggedInAsAdmin();
+const pb = useNuxtApp().$pb;
+const loggedInAsAdmin = ref(
+  pb.authStore.model ? pb.authStore.model.role === "admin" : false
+);
+
+console.log("is user admin? ", loggedInAsAdmin.value);
 if (!loggedInAsAdmin.value) navigateTo("/admin/login");
 </script>
 

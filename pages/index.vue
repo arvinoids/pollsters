@@ -8,5 +8,7 @@
 <script setup lang="ts">
 const pb = useNuxtApp().$pb;
 const loggedIn = ref(pb.authStore.model ? true : false);
-if (!loggedIn.value) navigateTo("/login");
+onMounted(() => {
+  if (!loggedIn.value) navigateTo("/login");
+});
 </script>

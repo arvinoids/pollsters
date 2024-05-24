@@ -44,7 +44,9 @@
         class="text-center border"
         placeholder="confirm password"
       />
-      <button type="submit" class="btn">{{ loginMode ? "Login" : "Register" }}</button>
+      <button type="submit" class="btn btn-confirm">
+        {{ loginMode ? "Login" : "Register" }}
+      </button>
       <button
         type="button"
         @click="toggleLoginMode"

@@ -2,6 +2,7 @@
   <div class="w-[50ch]">
     <div v-if="user" class="flex flex-col gap-4 items-center ">
       <h1>{{ `Welcome, ${user.email}` }}</h1>
+      <p>You will be redirected to the home page.</p>
       <button class="btn" @click="pb.authStore.clear(); user=null">Logout</button>
     </div>
     <form v-else @submit.prevent="loginMode ? loginUser() : registerUser()" class="flex flex-col items-center gap-3">
@@ -44,6 +45,9 @@ const loginUser = async () => {
   try {
     const authData = await pb.collection('users').authWithPassword(formState.email, formState.password);
     user.value = authData.record;
+    setTimeout(()=>{
+      navigateTo('/')
+    }, 3000)
   } catch (error: any) {
     message.value = 'Login failed: ' + error.message;
   }

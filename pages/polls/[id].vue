@@ -4,13 +4,13 @@
         <h3>Questions:</h3>
         <ol>
             <li v-for="question in poll.expand!.questions">
-                <fieldset>
+                <div>
                     <legend>{{ question.question }}</legend>
                     <div v-for="options in question.expand.options">
                     <input type="radio" :id="options.id" :name="question.identifier" :value="options.id">
                     <label :for="options.id">{{ options.name }}</label>
                     </div>
-                </fieldset>
+                </div>
             </li>
         </ol>
     </div>

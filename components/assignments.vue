@@ -1,10 +1,10 @@
 <template>
-  <div class="prose">
-    <div v-if="assignments.length > 0">
-      <h3>Here are your surveys:</h3>
+  <div class="">
+    <div v-if="assignments.length > 0" class="flex flex-col items-start">
+      <div class="text-lg font-bold mb-2">Here are your surveys:</div>
       <ul v-for="poll in assignments">
         <li class="list-none text-blue-400">
-          <span class="text-gray-600 p-2" v-if="poll.answered"
+          <span class="text-gray-600" v-if="poll.answered"
             >{{poll.expand!.poll.title }} (Answered)</span
           >
           <span v-else

@@ -1,7 +1,7 @@
 <template>
   <div class="h-screen w-screen flex justify-center items-center">
     <div
-      class="border bg-slate-50 px-10 py-8 shadow-lg min-w-[500px] min-h-[350px] flex items-center"
+      class="border bg-slate-50 px-10 py-8 shadow-lg min-w-[500px] min-h-[350px] flex rounded"
     >
       <slot />
     </div>

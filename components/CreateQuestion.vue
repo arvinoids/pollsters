@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button class="btn btn-normal" @click="showDialog = true">Create a Question</button>
+    <button class="btn btn-normal" @click="showDialog = true"><slot /></button>
     <DialogBox v-if="showDialog">
       <div class="text-xl font-bold">Create a question</div>
       <div>
@@ -19,7 +19,7 @@
           </option>
         </select>
         <p class="text-xs text-blue-600">Hold shift to select multiple</p>
-        <CreateOption />
+        <CreateOption>Add a choice</CreateOption>
       </div>
       <div class="flex justify-between gap-3">
         <button class="btn btn-cancel" @click="showDialog = false">Cancel</button>

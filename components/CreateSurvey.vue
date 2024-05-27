@@ -20,7 +20,7 @@
         />
       </div>
       <div>
-        <span>Survey questions:</span>
+        <div>Survey questions:</div>
         <select
           name="group"
           class="select select-bordered grow"
@@ -36,7 +36,7 @@
           </option>
         </select>
         <p class="text-xs text-blue-600">Hold shift to select multiple</p>
-        <CreateQuestion />
+        <CreateQuestion>Add a question</CreateQuestion>
       </div>
       <div class="flex justify-between gap-3">
         <button class="btn btn-cancel" @click="showDialog = false">Cancel</button>
@@ -62,11 +62,18 @@ pb.collection("questions").subscribe("*", async (event) => {
 
 async function createSurvey() {
   const data = {
-    title,
-    description,
-    questions,
+    title: title.value,
+    description: description.value,
+    questions: questions.value,
   };
-  return;
+  console.log(data);
+  try {
+    await pb.collection("polls").create(data);
+    alert("Survey has been created!");
+    showDialog.value = false;
+  } catch (e: any) {
+    alert(e.message);
+  }
 }
 </script>
 

@@ -37,11 +37,19 @@
 <script setup lang="ts">
 const showDialog = ref(false);
 const pb = useNuxtApp().$pb;
-let surveys = ref<string[]>([]);
-let users = ref<string[]>([]);
+const surveys = ref<string[]>([]);
+const users = ref<string[]>([]);
 
-const allUsers = await pb.collection("users").getFullList();
-const allPolls = await pb.collection("polls").getFullList();
+const allUsers = ref(await pb.collection("users").getFullList());
+const allPolls = ref(await pb.collection("polls").getFullList());
+
+pb.collection("polls").subscribe("*", async (event) => {
+  allPolls.value = await pb.collection("polls").getFullList();
+});
+
+pb.collection("users").subscribe("*", async (event) => {
+  allUsers.value = await pb.collection("users").getFullList();
+});
 
 async function assignSurvey() {
   let status = false;

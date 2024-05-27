@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button @click="showDialog = true" class="btn btn-normal">Create a Choice</button>
+    <button @click="showDialog = true" class="btn btn-normal"><slot /></button>
     <DialogBox v-if="showDialog"
       ><h2 class="text-xl font-bold mb-4">Create an answer choice</h2>
       <div>

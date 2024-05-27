@@ -1,10 +1,8 @@
 <template>
-  <div class="prose">
+  <div class="">
     <div class="flex items-center justify-between">
-      Hello,
-      {{ user!.email
-
-      }}<button class="ml-4 btn btn-cancel" @click="logout">Logout</button>
+      <p>Hello, {{ user!.email }}</p>
+      <button class="btn bg-gray-400 text-white" @click="logout">Logout</button>
     </div>
   </div>
 </template>

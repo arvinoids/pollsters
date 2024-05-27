@@ -7,7 +7,7 @@
         Question:<input type="" name="" v-model="question" placeholder="What is love?" />
       </div>
       <div>
-        Select choices:
+        <p>Select choices:</p>
         <select
           name="group"
           class="select select-bordered grow"
@@ -15,9 +15,11 @@
           multiple
         >
           <option v-for="choice in allChoices" :value="choice.id" :key="choice.id">
-            {{ choice.name }}({{ choice.description }})
+            {{ choice.name }} ({{ choice.description }})
           </option>
         </select>
+        <p class="text-xs text-blue-600">Hold shift to select multiple</p>
+        <CreateOption />
       </div>
       <div class="flex justify-between gap-3">
         <button class="btn btn-cancel" @click="showDialog = false">Cancel</button>
@@ -29,7 +31,7 @@
 
 <script setup lang="ts">
 const pb = useNuxtApp().$pb;
-const allChoices = await pb.collection("options").getFullList();
+const allChoices = ref(await pb.collection("options").getFullList());
 let question: string;
 let options: string[];
 const showDialog = ref(false);
@@ -42,6 +44,10 @@ async function createQuestion() {
     alert(e.message);
   }
 }
+
+pb.collection("options").subscribe("*", async (event) => {
+  allChoices.value = await pb.collection("options").getFullList();
+});
 </script>
 
 <style></style>

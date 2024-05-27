@@ -2,7 +2,7 @@
   <div class="text-center w-full">
     <div v-if="!loggedInAsAdmin">
       <h2 class="text-xl font-bold py-3">Administrator Login</h2>
-      <form @submit.prevent="login" class="flex flex-col gap-3">
+      <form @submit.prevent="adminLogin" class="flex flex-col gap-3">
         <div class="form-group">
           <label for="username">Username: </label>
           <input

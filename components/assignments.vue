@@ -3,14 +3,19 @@
     <div v-if="assignments.length > 0">
       <h3>Here are your surveys:</h3>
       <ul v-for="poll in assignments">
-        <li>
-          <nuxt-link
-            :to="{ name: 'polls-id', params: { id: poll.expand!.poll.id } }"
-            class="no-underline"
-            >{{
+        <li class="list-none text-blue-400">
+          <span class="text-gray-600 p-2" v-if="poll.answered"
+            >{{poll.expand!.poll.title }} (Answered)</span
+          >
+          <span v-else
+            ><nuxt-link
+              :to="{ name: 'polls-id', params: { id: poll.expand!.poll.id } }"
+              class="no-underline text-blue-600"
+              >{{
                     poll.expand!.poll.title
-            }}</nuxt-link
-          ><span class="border p-2" v-if="poll.expand!.poll.answered">Answered</span>
+              }}</nuxt-link
+            ></span
+          >
         </li>
       </ul>
     </div>
@@ -27,4 +32,6 @@ const assignments = await pb
   .collection("assignments")
   .getList(1, 1000, { filter: `user="${user!.id}"`, expand: "poll" })
   .then((res) => res.items);
+
+console.log(assignments);
 </script>

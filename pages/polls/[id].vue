@@ -35,6 +35,8 @@
 </template>
 
 <script setup lang="ts">
+import type { AuthModel } from "pocketbase";
+
 // get route parameter to identify the poll
 const route = useRoute();
 const id = route.params.id as string;
@@ -46,6 +48,7 @@ const user = pb.authStore.model;
 if (!user) navigateTo("/login");
 
 const poll = await getPoll(id);
+const assignment = await getAssignment();
 
 const answers = ref<Record<number, string>>({});
 
@@ -55,6 +58,13 @@ async function getPoll(id: string) {
     .collection("polls")
     .getOne(id, { expand: "questions,questions.options" });
   return poll;
+}
+
+async function getAssignment() {
+  const record = await pb
+    .collection("assignments")
+    .getFirstListItem(`user="${user!.id}"&&poll="${id}"`);
+  return record;
 }
 
 async function submitAnswers() {
@@ -70,6 +80,10 @@ async function submitAnswers() {
   }
 }
 
+async function setAnswered() {
+  await pb.collection("assignments").update(assignment.id, { answered: true });
+}
+
 async function saveAnswer(question: string, answer: string) {
   const data = {
     poll: poll.id,
@@ -79,6 +93,7 @@ async function saveAnswer(question: string, answer: string) {
   };
   try {
     await pb.collection("responses").create(data);
+    await setAnswered();
     submitted.value = true;
   } catch (e: any) {
     console.log(e);

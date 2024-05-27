@@ -1,17 +1,17 @@
 <template>
-  <div>
+  <div class="w-full">
+    <Greeter class="w-full" />
     <h1 class="text-xl font-bold">Logged in as admin</h1>
     <div class="flex flex-col">
       <CreateSurvey />
-      <CreateQuestion />
-      <CreateOption />
+      <CreateAssignment />
     </div>
+    <HomeButton />
+    <nuxt-link to="/admin/results">Results</nuxt-link>
   </div>
 </template>
 
 <script setup lang="ts">
-import CreateQuestion from "~/components/CreateQuestion.vue";
-
 const pb = useNuxtApp().$pb;
 const loggedInAsAdmin = ref(
   pb.authStore.model ? pb.authStore.model.role === "admin" : false

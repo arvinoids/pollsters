@@ -9,6 +9,10 @@
 </template>
 
 <style>
+body {
+  background-color: #afafaf;
+}
+
 input {
   @apply rounded border;
 }

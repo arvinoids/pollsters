@@ -4,10 +4,10 @@
     <DialogBox v-if="showDialog">
       <div><p class="font-bold">Create a survey</p></div>
       <div>
-        Survey name:<input
+        Survey title:<input
           type="text"
-          name="name"
-          v-model="name"
+          name="title"
+          v-model="title"
           placeholder="Name your survey"
         />
       </div>
@@ -19,21 +19,53 @@
           placeholder="Describe your survey"
         />
       </div>
-      <div><span>Survey questions:</span><CreateQuestion /></div>
+      <div>
+        <span>Survey questions:</span>
+        <select
+          name="group"
+          class="select select-bordered grow"
+          v-model="questions"
+          multiple
+        >
+          <option
+            v-for="question in allQuestions"
+            :value="question.id"
+            :key="question.id"
+          >
+            {{ question.question }}
+          </option>
+        </select>
+        <p class="text-xs text-blue-600">Hold shift to select multiple</p>
+        <CreateQuestion />
+      </div>
       <div class="flex justify-between gap-3">
         <button class="btn btn-cancel" @click="showDialog = false">Cancel</button>
-        <button class="btn btn-confirm" @click="creatSurvey">Create Survey</button>
+        <button class="btn btn-confirm" @click="createSurvey">Create Survey</button>
       </div>
     </DialogBox>
   </div>
 </template>
 
 <script setup lang="ts">
-const name = ref();
+const pb = useNuxtApp().$pb;
+const title = ref();
 const description = ref();
+const questions = ref<string[]>([]);
 const showDialog = ref(false);
 
+const allQuestions = ref(await pb.collection("questions").getFullList());
+
+// subscribe to questions collection
+pb.collection("questions").subscribe("*", async (event) => {
+  allQuestions.value = await pb.collection("questions").getFullList();
+});
+
 async function createSurvey() {
+  const data = {
+    title,
+    description,
+    questions,
+  };
   return;
 }
 </script>

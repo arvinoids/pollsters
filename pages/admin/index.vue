@@ -3,7 +3,6 @@
     <h1 class="text-xl font-bold">Logged in as admin</h1>
     <div class="flex flex-col">
       <CreateSurvey />
-      <CreateAssignment />
       <CreateQuestion />
       <CreateOption />
     </div>
